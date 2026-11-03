@@ -93,7 +93,6 @@ st.sidebar.markdown(f"**Loaded Slices:** {len(times)}")
 st.sidebar.markdown(f"**Spatial Points:** {len(positions)}")
 st.sidebar.markdown(f"**Distance Range:** {positions[0]:.2f}m – {positions[-1]:.2f}m")
 
-# Time slice selector (Slider)
 selected_idx = st.sidebar.slider(
     "Select Time Index",
     min_value=0,
@@ -106,7 +105,7 @@ selected_time_str = time_strs[selected_idx]
 st.sidebar.info(f"Current Slice:\n`{selected_time_str}`")
 
 # ---------------------------------------------------------
-# Main Visualizations (1.5x font sizes)
+# Main Visualizations (Balanced standard fonts)
 # ---------------------------------------------------------
 st.title("Distributed Temperature Sensing (DTS) Explorer")
 
@@ -124,9 +123,9 @@ with col1:
                 cmin=z_min,
                 cmax=z_max,
                 colorbar=dict(
-                    title=dict(text="Temp (°C)", font=dict(size=24, family="Arial")),
-                    tickfont=dict(size=20, family="Arial"),
-                    len=0.8,
+                    title=dict(text="Temp (°C)", font=dict(size=14, family="Arial")),
+                    tickfont=dict(size=11, family="Arial"),
+                    len=0.75,
                 ),
                 hoverinfo="x+y+z",
             )
@@ -136,27 +135,27 @@ with col1:
     fig_3d.update_layout(
         title=dict(
             text="3D Temperature Evolution",
-            font=dict(size=30, family="Arial"),
+            font=dict(size=18, family="Arial"),
             x=0.5,
         ),
-        font=dict(size=21, family="Arial"),
+        font=dict(size=12, family="Arial"),
         scene=dict(
             xaxis=dict(
-                title=dict(text="Distance (m)", font=dict(size=21, family="Arial")),
-                tickfont=dict(size=18, family="Arial"),
+                title=dict(text="Distance (m)", font=dict(size=13, family="Arial")),
+                tickfont=dict(size=11, family="Arial"),
             ),
             yaxis=dict(
-                title=dict(text="Timestamp", font=dict(size=21, family="Arial")),
-                tickfont=dict(size=17, family="Arial"),
+                title=dict(text="Timestamp", font=dict(size=13, family="Arial")),
+                tickfont=dict(size=10, family="Arial"),
             ),
             zaxis=dict(
-                title=dict(text="Temperature (°C)", font=dict(size=21, family="Arial")),
-                tickfont=dict(size=18, family="Arial"),
+                title=dict(text="Temperature (°C)", font=dict(size=13, family="Arial")),
+                tickfont=dict(size=11, family="Arial"),
             ),
             camera=dict(eye=dict(x=-1.6, y=-1.6, z=1.3)),
         ),
-        margin=dict(l=10, r=10, b=10, t=50),
-        height=620,
+        margin=dict(l=10, r=10, b=10, t=45),
+        height=600,
     )
     st.plotly_chart(fig_3d, use_container_width=True)
 
@@ -168,7 +167,7 @@ with col2:
                 x=positions,
                 y=temp_matrix[selected_idx],
                 mode="lines",
-                line=dict(color="#d62728", width=3.0),
+                line=dict(color="#d62728", width=2.0),
                 name="Temperature",
             )
         ]
@@ -177,23 +176,23 @@ with col2:
     fig_2d.update_layout(
         title=dict(
             text=f"Trace Profile @ {selected_time_str}",
-            font=dict(size=27, family="Arial"),
+            font=dict(size=18, family="Arial"),
             x=0.5,
         ),
-        font=dict(size=21, family="Arial"),
+        font=dict(size=12, family="Arial"),
         xaxis=dict(
-            title=dict(text="Distance (m)", font=dict(size=24, family="Arial")),
-            tickfont=dict(size=20, family="Arial"),
+            title=dict(text="Distance (m)", font=dict(size=14, family="Arial")),
+            tickfont=dict(size=12, family="Arial"),
             gridcolor="#e0e0e0",
         ),
         yaxis=dict(
-            title=dict(text="Temperature (°C)", font=dict(size=24, family="Arial")),
-            tickfont=dict(size=20, family="Arial"),
+            title=dict(text="Temperature (°C)", font=dict(size=14, family="Arial")),
+            tickfont=dict(size=12, family="Arial"),
             range=[z_min - 2, z_max + 2],
             gridcolor="#e0e0e0",
         ),
         plot_bgcolor="white",
-        margin=dict(l=40, r=20, b=30, t=60),
-        height=620,
+        margin=dict(l=40, r=20, b=30, t=50),
+        height=600,
     )
     st.plotly_chart(fig_2d, use_container_width=True)
